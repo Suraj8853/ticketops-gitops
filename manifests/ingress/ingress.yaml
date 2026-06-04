@@ -1,0 +1,49 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ticketops-ingress
+  namespace: ticketops
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+    kubernetes.io/ingress.class: alb 
+    alb.ingress.kubernetes.io/scheme: "internet-facing"
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/healthcheck-path: /health
+
+  labels:
+    app: ticketops
+spec:
+  ingressClassName: "alb"
+  rules:
+    - http:
+        paths:
+          - path: /api/events
+            pathType: Prefix
+            backend:
+              service:
+                name: events-api-service
+                port:
+                  number: 80
+          - path: /api/admin
+            pathType: Prefix
+            backend:
+              service:
+                name: admin-api-service
+                port:
+                  number: 80
+          - path: /auth
+            pathType: Prefix
+            backend:
+              service:
+                name: admin-api-service
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: dashboard-service
+                port:
+                  number: 80
+          

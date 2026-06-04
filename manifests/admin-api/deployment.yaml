@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-api
+  namespace: ticketops
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+  labels:
+    app: admin-api
+spec:
+  replicas:  2
+  selector:
+    matchLabels:
+      app: admin-api
+  template:
+    metadata:
+      labels:
+        app: admin-api
+    spec:
+      containers:
+        - name: admin-api
+          image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-admin-api:v1.2.0
+          ports:
+            - containerPort: 4000
+          envFrom:
+            - configMapRef: 
+                name: admin-api-config
+          env:
+           - name: DB_HOST
+             valueFrom:
+               secretKeyRef:
+                 name: admin-api-secrets
+                 key: db_host
+           - name: DB_PASSWORD
+             valueFrom:
+               secretKeyRef:
+                 name: admin-api-secrets
+                 key: db_password
+           - name: DB_USER
+             valueFrom:
+               secretKeyRef:
+                  name: admin-api-secrets
+                  key: db_username
+           - name: JWT_SECRET
+             valueFrom:
+               secretKeyRef:
+                 name: admin-api-secrets
+                 key: jwt_secret
+           - name: ADMIN_PASSWORD
+             valueFrom:
+               secretKeyRef:
+                 name: admin-api-secrets
+                 key: admin_password
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "250Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 4000
+            initialDelaySeconds: 30
+            periodSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health 
+              port: 4000
+            initialDelaySeconds: 30
+            periodSeconds: 5
+            failureThreshold: 3
+
+          
