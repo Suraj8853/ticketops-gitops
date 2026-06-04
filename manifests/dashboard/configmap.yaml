@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dashboard-config
+  namespace: ticketops
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  labels:
+    app: dashboard
+data:
+  VITE_EVENTS_API_URL: "http://events-api-service"
+  VITE_ADMIN_API_URL: "http://admin-api-service"

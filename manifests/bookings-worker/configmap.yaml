@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bookings-worker-config
+  namespace: ticketops
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  labels:
+    app: bookings-worker
+data:
+  NODE_ENV: "production"
+  PORT: "3001"
+  DB_PORT: "5432"
+  DB_NAME: "ticketops"
+  REDIS_PORT: "6379"
+  LOG_LEVEL: "info"
+  SEAT_LOCK_TTL: "600"
