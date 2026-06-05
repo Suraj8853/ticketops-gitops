@@ -11,6 +11,8 @@ spec:
     repoURL: https://github.com/Suraj8853/ticketops-gitops
     targetRevision: HEAD
     path: manifests
+    directory:
+      recurse:  true
   destination:
     server: https://kubernetes.default.svc
     namespace: ticketops
