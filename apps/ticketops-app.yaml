@@ -13,6 +13,7 @@ spec:
     path: manifests
     directory:
       recurse:  true
+      exclude: '{namespaces/**}'
   destination:
     server: https://kubernetes.default.svc
     namespace: ticketops
