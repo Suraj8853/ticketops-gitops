@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: dashboard
-          image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-dashboard:v1.4.1
+          image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-dashboard:v1.4.2
           ports:
             - containerPort: 80 
           resources:

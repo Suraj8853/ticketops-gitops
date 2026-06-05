@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: events-api
-          image: "599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-events-api:v1.4.1"
+          image: "599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-events-api:v1.4.2"
           ports:
             - containerPort: 3000
           envFrom:
