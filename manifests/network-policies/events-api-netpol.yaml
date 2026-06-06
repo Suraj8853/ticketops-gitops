@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: events-api-netpol
+  namespace: ticketops
+  annotations:           
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  podSelector:
+    matchLabels:
+      app: events-api
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: dashboard
+      ports:
+        - port: 3000
+  egress:
+    - ports:
+        - port: 6379
+        - port: 5432
+        - port: 53
+      protocol: TCP
+    - ports:
+        - port: 53
+      protocol: UDP
+
+            
