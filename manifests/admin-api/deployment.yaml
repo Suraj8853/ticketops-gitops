@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: admin-api
-          image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-admin-api:v1.4.2
+          image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-admin-api:v1.5.3
           ports:
             - containerPort: 4000
           envFrom:
