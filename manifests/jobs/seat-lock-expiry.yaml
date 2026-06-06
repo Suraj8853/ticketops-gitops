@@ -18,26 +18,28 @@ spec:
           containers:
             - name: seat-lock-expiry
               image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-events-api:v1.5.3
-              command: ["node", "-e", "
-                const { Pool } = require('pg');
-                const pool = new Pool({
-                  host: process.env.DB_HOST,
-                  port: parseInt(process.env.DB_PORT) || 5432,
-                  database: process.env.DB_NAME,
-                  user: process.env.DB_USER,
-                  password: process.env.DB_PASSWORD,
-                  ssl: { rejectUnauthorized: false }
-                });
-                pool.query(
-                  'UPDATE seats SET status = \'available\', locked_until = NULL WHERE status = \'locked\' AND locked_until < NOW()',
-                ).then(result => {
-                  console.log('Released', result.rowCount, 'expired seat locks');
-                  process.exit(0);
-                }).catch(err => {
-                  console.error('Error:', err.message);
-                  process.exit(1);
-                });
-              "]
+              command:
+                - node
+                - -e
+                - |
+                  const { Pool } = require('pg');
+                  const pool = new Pool({
+                    host: process.env.DB_HOST,
+                    port: parseInt(process.env.DB_PORT) || 5432,
+                    database: process.env.DB_NAME,
+                    user: process.env.DB_USER,
+                    password: process.env.DB_PASSWORD,
+                    ssl: { rejectUnauthorized: false }
+                  });
+                  pool.query(
+                    "UPDATE seats SET status = 'available', locked_until = NULL WHERE status = 'locked' AND locked_until < NOW()"
+                  ).then(result => {
+                    console.log('Released', result.rowCount, 'expired seat locks');
+                    process.exit(0);
+                  }).catch(err => {
+                    console.error('Error:', err.message);
+                    process.exit(1);
+                  });
               env:
                 - name: DB_HOST
                   valueFrom:
