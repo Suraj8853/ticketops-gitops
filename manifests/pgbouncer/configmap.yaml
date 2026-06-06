@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pgbouncer-config
+  namespace: ticketops
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+data:
+  pgbouncer.ini: |
+    [databases]
+    ticketops = host=DB_HOST_PLACEHOLDER port=5432 dbname=ticketops
+
+    [pgbouncer]
+    listen_port = 5432
+    listen_addr = 0.0.0.0
+    auth_type = md5
+    auth_file = /etc/pgbouncer/userlist.txt
+    pool_mode = transaction
+    max_client_conn = 1000
+    default_pool_size = 20
+    reserve_pool_size = 5
+    reserve_pool_timeout = 3
+    log_connections = 1
+    log_disconnections = 1
+    server_tls_sslmode = require
