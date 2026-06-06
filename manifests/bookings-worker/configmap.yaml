@@ -10,6 +10,7 @@ metadata:
 data:
   NODE_ENV: "production"
   PORT: "3001"
+  DB_HOST: "pgbouncer-service"
   DB_PORT: "5432"
   DB_NAME: "ticketops"
   REDIS_PORT: "6379"

@@ -7,9 +7,10 @@ metadata:
     argocd.argoproj.io/sync-wave: "3"
   labels:
     app: admin-api
-data:  
+data:
   NODE_ENV: "production"
   PORT: "4000"
+  DB_HOST: "pgbouncer-service"
   DB_PORT: "5432"
   DB_NAME: "ticketops"
   LOG_LEVEL: "info"

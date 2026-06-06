@@ -4,8 +4,8 @@ metadata:
   name: events-api
   namespace: ticketops
   labels:
-    app: deployment 
-    version: v1.0.0
+    app: events-api
+    version: v1.5.3
   annotations:
     argocd.argoproj.io/sync-wave: "4"
 spec:
@@ -26,12 +26,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: events-api-config
-          env: 
-            - name: DB_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: db-credentials
-                  key: host
+          env:
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
@@ -45,8 +40,8 @@ spec:
             - name: REDIS_HOST
               valueFrom:
                 secretKeyRef:
-                   name: redis-credentials
-                   key: host
+                  name: redis-credentials
+                  key: host
           resources:
             requests:
               cpu: "250m"
