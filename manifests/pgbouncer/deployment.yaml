@@ -51,7 +51,7 @@ spec:
             - name: PGBOUNCER_DEFAULT_POOL_SIZE
               value: "20"
             - name: PGBOUNCER_SERVER_TLS_SSLMODE
-              value: "require"
+              value: "prefer"
             - name: PGBOUNCER_CLIENT_TLS_SSLMODE
               value: "disable"
             - name: PGBOUNCER_SERVER_TLS_CA_FILE
