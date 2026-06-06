@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: bookings-worker
-          image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-bookings-worker:v1.5.3
+          image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-bookings-worker:v1.5.4
           ports:
             - containerPort: 9090
           envFrom:
