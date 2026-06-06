@@ -18,6 +18,7 @@ spec:
       labels:
         app: events-api
     spec:
+      serviceAccountName: events-api-sa
       containers:
         - name: events-api
           image: "599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-events-api:v1.5.4"

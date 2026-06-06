@@ -18,6 +18,7 @@ spec:
       labels:
         app: dashboard
     spec:
+      serviceAccountName: dashboard-sa
       containers:
         - name: dashboard
           image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-dashboard:v1.5.4
