@@ -1,0 +1,33 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: requires-resources-limits
+  annotations:
+    policies.kyverno.io/title: Require Resource Limits
+    policies.kyverno.io/description: >-
+      Requires all containers to have CPU and memory limits defined
+      to prevent resource exhaustion on nodes.
+spec:
+  validationFailureAction: Audit
+  background: true
+  rules:
+    - name: check-container-limits
+      match:
+        any: 
+          - resources:
+              kinds: 
+                - Pod
+              namespaces:
+                - ticketops
+      validate:
+        message: "CPU and memory limits are required for all the containers in the ticketops"
+        pattern:
+          spec:
+            containers:
+              - resources:
+                  limits:
+                    memory: "?*"
+                    cpu:  "?*"
+                  requests:
+                    memory: "?*"
+                    cpu: "?*"

@@ -1,0 +1,28 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-labels
+  annotations:
+    policies.kyverno.io/title: Require Labels
+    policies.kyverno.io/description: >-
+      Requires all pods in ticketops namespace to have app
+      and version labels for proper identification and routing.
+spec:
+  validationFailureAction: Audit
+  background: true
+  rules:
+    - name: check-required-labels
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              namespaces:
+                - ticketops
+      validate:
+        message: "Pods must have 'app' and 'version' labels"
+        pattern:
+          metadata:
+            labels:
+              app: "?*"
+              version: "?*"
