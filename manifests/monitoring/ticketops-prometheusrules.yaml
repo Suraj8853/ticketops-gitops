@@ -1,0 +1,73 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: ticketops-slo-rules
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  namespace: ticketops
+  labels:
+    release: prometheus
+spec:
+  groups:
+    - name: ticketops-slo
+      interval: 30s
+      rules:
+       - alert: HighErrorRate
+         expr: |
+           (sum(rate(ticketops_http_requests_total{status_code=~"5.."}[5m]))
+            /
+            sum(rate(ticketops_http_requests_total[5m]))) * 100 > 1
+         for: 5m
+         labels:
+           severity: critical
+           namespace: ticketops
+         annotations:
+           summary: "High error rate on events-api"
+           description: "Error Rate is {{ $value | printf \"%.2f\" }} % which is above 1% SLO threshold "
+       - alert: HighLatencyP99
+         expr: |
+           histogram_quantile(0.99,
+              sum by(le) (rate(ticketops_http_duration_seconds_bucket[5m]))
+            ) > 0.5
+         for: 5m
+         labels:
+           severity: critical
+           namespace: ticketops
+         annotations:
+           summary: "High P99 latency on events-api"
+           description: "P99 latency is {{ $value | printf \"%.2f\" }}s which is above 500ms threshold"
+       - alert: PodCrashLoops
+         expr:  |
+           rate(kube_pod_container_status_restarts_total{namespace="ticketops"}[15m]) * 900 > 3
+         for: 5m
+         labels:
+           severity: critical
+           namespace: ticketops
+         annotations:
+           summary: "Pod crash looping in ticketops"
+           description:  "Pod {{ $labels.pod }} is crash looping"
+       - alert: HighHeapMemory
+         expr: |
+            sum(ticketops_nodejs_heap_size_used_bytes) by (pod) > 400000000
+         for: 5m
+         labels:
+           severity: warning
+           namespace: ticketops
+         annotations:
+          summary: "High heap memory usage"
+          description: "Pod {{ $labels.pod }} heap memory is {{ $value | humanize }}B, approaching 512MB limit"
+       - alert: EventAndLoopLagHigh
+         expr: |
+           ticketops_nodejs_eventloop_lag_seconds > 0.1
+         for: 5m
+         labels:
+           severity: warning
+           namespace: ticketops
+         annotations:
+           summary: High event loop lag on events-api
+           description: "Event loop lag is {{ $value | printf \"%.3f\" }}s on pod {{ $labels.pod }}"
+        
+
+        
+           
+             
