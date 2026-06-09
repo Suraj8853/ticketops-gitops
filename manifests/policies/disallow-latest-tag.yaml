@@ -8,7 +8,7 @@ metadata:
       Disallows container images with the latest tag or no tag.
       All images must use a specific version tag for reproducibility.
 spec:
-  validationFailureAction: Audit
+  validationFailureAction: Enforce
   background: true
   rules:
     - name: check-image-tag

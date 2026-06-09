@@ -8,7 +8,7 @@ metadata:
       Containers must not run as root user. Requires runAsNonRoot
       to be set to true to prevent privilege escalation
 spec:
-  validationFailureAction: Audit
+  validationFailureAction: Enforce
   background: true
   rules:
     - name: checkasNonroot

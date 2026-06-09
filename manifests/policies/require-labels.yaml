@@ -8,7 +8,7 @@ metadata:
       Requires all pods in ticketops namespace to have app
       and version labels for proper identification and routing.
 spec:
-  validationFailureAction: Audit
+  validationFailureAction: Enforce
   background: true
   rules:
     - name: check-required-labels
