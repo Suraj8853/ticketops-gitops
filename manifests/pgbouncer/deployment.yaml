@@ -16,10 +16,15 @@ spec:
     metadata:
       labels:
         app: pgbouncer
+        version: v1.0.0
     spec:
       containers:
         - name: pgbouncer
           image: public.ecr.aws/bitnami/pgbouncer:1.21.0
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            allowPrivilegeEscalation: false
           ports:
             - containerPort: 5432
           env:

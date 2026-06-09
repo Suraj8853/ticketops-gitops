@@ -9,11 +9,19 @@ metadata:
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
 spec:
   template:
+    metadata:
+      labels:
+        app: db-migrate
+        version: v1.6.3
     spec:
       restartPolicy: Never
       containers:
         - name: db-migrate
           image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-events-api:v1.6.3
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            allowPrivilegeEscalation: false
           command: ["node", "-e", "const { Pool } = require('pg'); const fs = require('fs'); const pool = new Pool({ host: process.env.DB_HOST, port: parseInt(process.env.DB_PORT) || 5432, database: process.env.DB_NAME, user: process.env.DB_USER, password: process.env.DB_PASSWORD, ssl: { rejectUnauthorized: false } }); const sql = fs.readFileSync('/app/src/models/schema.sql', 'utf8'); pool.query(sql).then(() => { console.log('Migration complete'); process.exit(0); }).catch(err => { console.error('Migration failed:', err.message); process.exit(1); });"]
           env:
             - name: DB_HOST

@@ -16,11 +16,16 @@ spec:
         metadata:
           labels:
             app: seat-lock-expiry
+            version: v1.6.3
         spec:
           restartPolicy: OnFailure
           containers:
             - name: seat-lock-expiry
               image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-events-api:v1.6.3
+              securityContext:
+                runAsNonRoot: true
+                runAsUser: 1000
+                allowPrivilegeEscalation: false
               command:
                 - node
                 - -e
