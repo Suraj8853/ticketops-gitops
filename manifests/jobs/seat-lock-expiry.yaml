@@ -21,7 +21,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: seat-lock-expiry
-              image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-events-api:v1.6.6
+              image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-events-api:v1.6.7
               securityContext:
                 runAsNonRoot: true
                 runAsUser: 1000
