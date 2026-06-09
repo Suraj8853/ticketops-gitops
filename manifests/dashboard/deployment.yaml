@@ -28,7 +28,7 @@ spec:
             runAsUser: 1000
             allowPrivilegeEscalation: false
           ports:
-            - containerPort: 80 
+            - containerPort: 8080 
           resources:
             requests:
               cpu: "100m"
