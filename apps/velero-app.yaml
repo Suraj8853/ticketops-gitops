@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: velero
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  project: default
+  source:
+    repoURL: https://vmware-tanzu.github.io/helm-charts
+    chart: velero
+    targetRevision: 8.1.0
+    helm: 
+      values: | 
+        credentials:
+          useSecret: false
+        serviceAccount:
+          create: true
+          annotations:
+            eks.amazonaws.com/role-arn: arn:aws:iam::599476212737:role/ticketops-dev-velero-role
+        configuration:
+          backupStorageLocation:
+            - name: default
+              provider: aws
+              bucket: ticketops-dev-velero-backups
+              config:
+                region: ap-south-1 
+          volumeSnapshotLocation:
+            - name: default
+              provider: aws
+              config:
+                region: ap-south-1
+        initContainers:
+          - name: velero-plugin-aws
+            image: velero/velero-plugin-for-aws:v1.10.0
+            volumeMounts:
+              - mountPath: /target
+                name: plugins
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: velero
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions: 
+      - CreateNamespace=true      
