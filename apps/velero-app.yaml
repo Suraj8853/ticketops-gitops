@@ -11,8 +11,8 @@ spec:
     repoURL: https://vmware-tanzu.github.io/helm-charts
     chart: velero
     targetRevision: 8.1.0
-    helm: 
-      values: | 
+    helm:
+      values: |
         credentials:
           useSecret: false
         serviceAccount:
@@ -25,7 +25,7 @@ spec:
               provider: aws
               bucket: ticketops-dev-velero-backups
               config:
-                region: ap-south-1 
+                region: ap-south-1
           volumeSnapshotLocation:
             - name: default
               provider: aws
@@ -37,6 +37,9 @@ spec:
             volumeMounts:
               - mountPath: /target
                 name: plugins
+        kubectl:
+          image:
+            tag: 1.28.0
   destination:
     server: https://kubernetes.default.svc
     namespace: velero
@@ -44,5 +47,5 @@ spec:
     automated:
       prune: true
       selfHeal: true
-    syncOptions: 
-      - CreateNamespace=true      
+    syncOptions:
+      - CreateNamespace=true
