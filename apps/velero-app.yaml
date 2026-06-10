@@ -37,9 +37,7 @@ spec:
             volumeMounts:
               - mountPath: /target
                 name: plugins
-        kubectl:
-          image:
-            tag: 1.28.0
+        upgradeCRDs: false
   destination:
     server: https://kubernetes.default.svc
     namespace: velero
