@@ -1,11 +1,11 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: events-api
   namespace: ticketops
   labels:
     app: events-api
-    version: v1.6.1
+    version: v1.6.9
   annotations:
     argocd.argoproj.io/sync-wave: "4"
 spec:
@@ -69,3 +69,13 @@ spec:
             initialDelaySeconds: 10
             periodSeconds: 5
             failureThreshold: 3
+  strategy:
+    canary:
+      steps:
+        - setWeight: 20
+        - pause: {duration: 30s }
+        - setWeight: 40
+        - pause: {duration: 30s }
+        - setWeight: 60
+        - pause: {duration: 30s}
+        - setWeight: 100
