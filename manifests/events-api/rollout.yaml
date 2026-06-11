@@ -9,7 +9,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "4"
 spec:
-  replicas: 2
+  replicas: 20
   selector:
     matchLabels:
       app: events-api
