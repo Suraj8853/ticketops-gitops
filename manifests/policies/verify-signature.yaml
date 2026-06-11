@@ -6,7 +6,7 @@ metadata:
     policies.kyverno.io/title: Verify Image Signature
     policies.kyverno.io/description: >
       Ensures all images in the ticketops namespace are signed
-      via SigStore keyless signing from CI pipeline.
+      via Sigstore keyless signing from the CI pipeline.
 spec:
   validationFailureAction: Enforce
   background: false
@@ -19,7 +19,7 @@ spec:
                 - Pod
               namespaces:
                 - ticketops
-      verifyImageSignature:
+      verifyImages:
         - imageReferences:
             - "599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-*"
           attestors:
