@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: pgbouncer
-          image: docker.io/bitnami/pgbouncer:1.21.0
+          image: pgbouncer/pgbouncer:1.23.1
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
