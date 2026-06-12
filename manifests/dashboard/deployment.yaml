@@ -22,7 +22,7 @@ spec:
       serviceAccountName: dashboard-sa
       containers:
         - name: dashboard
-          image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-dashboard@sha256:85321ab34a1a712c394034d513f7f7f8afa54733ec31eff02049e14022fa9bd2
+          image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-dashboard@sha256:17d5ed1d5c896858bac2b8348453940c5694219b21864bc011710274073cb917
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
