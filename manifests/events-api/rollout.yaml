@@ -8,6 +8,7 @@ metadata:
     version: v1.6.9
   annotations:
     argocd.argoproj.io/sync-wave: "4"
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
   replicas: 2
   selector:
