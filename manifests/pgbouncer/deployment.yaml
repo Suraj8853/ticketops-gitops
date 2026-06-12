@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: pgbouncer
-          image: public.ecr.aws/bitnami/pgbouncer:1.21.0
+          image: edoburu/pgbouncer:latest
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
@@ -28,41 +28,37 @@ spec:
           ports:
             - containerPort: 5432
           env:
-            - name: POSTGRESQL_HOST
+            - name: DB_HOST
               valueFrom:
                 secretKeyRef:
                   name: db-credentials
                   key: host
-            - name: POSTGRESQL_PORT
+            - name: DB_PORT
               value: "5432"
-            - name: POSTGRESQL_DATABASE
+            - name: DB_NAME
               value: "ticketops"
-            - name: POSTGRESQL_USERNAME
+            - name: DB_USER
               valueFrom:
                 secretKeyRef:
                   name: db-credentials
                   key: username
-            - name: POSTGRESQL_PASSWORD
+            - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: db-credentials
                   key: password
-            - name: PGBOUNCER_PORT
+            - name: LISTEN_PORT
               value: "5432"
-            - name: PGBOUNCER_POOL_MODE
+            - name: POOL_MODE
               value: "transaction"
-            - name: PGBOUNCER_MAX_CLIENT_CONN
+            - name: MAX_CLIENT_CONN
               value: "1000"
-            - name: PGBOUNCER_DEFAULT_POOL_SIZE
+            - name: DEFAULT_POOL_SIZE
               value: "20"
-            - name: PGBOUNCER_SERVER_TLS_SSLMODE
+            - name: SERVER_TLS_SSLMODE
               value: "prefer"
-            - name: PGBOUNCER_CLIENT_TLS_SSLMODE
-              value: "disable"
-            - name: PGBOUNCER_DATABASE
-              value: "ticketops"
-            - name: PGBOUNCER_AUTH_TYPE
-              value: "scram-sha-256"
+            - name: AUTH_TYPE
+              value: "md5"
           resources:
             requests:
               cpu: "100m"
