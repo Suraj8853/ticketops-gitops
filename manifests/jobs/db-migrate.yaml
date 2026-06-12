@@ -17,7 +17,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: db-migrate
-          image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-events-api@sha256:2bfa0bf47094825c5980a3f01477f69635dc2f0af5394a775d9b8423116e0ad0
+          image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-events-api:v1.21.0
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000

@@ -22,7 +22,7 @@ spec:
       serviceAccountName: admin-api-sa
       containers:
         - name: admin-api
-          image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-admin-api@sha256:e8f316ea79974a6a90f123328217b62affa7945cb994b06c23179c515c84adef
+          image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-admin-api:v1.21.0
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
