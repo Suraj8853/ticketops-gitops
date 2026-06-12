@@ -19,6 +19,14 @@ spec:
                 - Pod
               namespaces:
                 - ticketops
+      exclude:
+        any:
+          - resources:
+              kinds:
+                - Job
+                - CronJob
+              namespaces:
+                - ticketops
       verifyImages:
         - imageReferences:
             - "599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-*"
