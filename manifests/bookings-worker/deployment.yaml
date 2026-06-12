@@ -22,7 +22,7 @@ spec:
       serviceAccountName: bookings-worker-sa
       containers:
         - name: bookings-worker
-          image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-bookings-worker:v1.17.0
+          image: 599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-bookings-worker@sha256:520c18f923ae740bb08320d76093c8cad0cde31f636654780a9d1451ac51aa88
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
