@@ -58,7 +58,7 @@ spec:
             - name: SERVER_TLS_SSLMODE
               value: "prefer"
             - name: AUTH_TYPE
-              value: "md5"
+              value: "scram-sha-256"
           resources:
             requests:
               cpu: "100m"
