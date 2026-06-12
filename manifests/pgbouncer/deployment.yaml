@@ -21,10 +21,6 @@ spec:
       containers:
         - name: pgbouncer
           image: edoburu/pgbouncer:v1.25.2-p0
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 1000
-            allowPrivilegeEscalation: false
           ports:
             - containerPort: 5432
           env:
