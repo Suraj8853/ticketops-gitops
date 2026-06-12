@@ -16,7 +16,8 @@ metadata:
 spec:
   ingressClassName: "alb"
   rules:
-    - http:
+    - host: ticketops.apisuraj.click
+      http:
         paths:
           - path: /api/events
             pathType: Prefix
