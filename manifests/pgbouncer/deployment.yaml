@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: pgbouncer
-          image: public.ecr.aws/bitnami/pgbouncer:1.21.0
+          image: docker.io/bitnami/pgbouncer:1.21.0
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
@@ -62,7 +62,7 @@ spec:
             - name: PGBOUNCER_DATABASE
               value: "ticketops"
             - name: PGBOUNCER_AUTH_TYPE
-              value: "scram-sha-256"
+              value: "md5"
           resources:
             requests:
               cpu: "100m"
