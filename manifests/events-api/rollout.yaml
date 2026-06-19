@@ -23,7 +23,7 @@ spec:
       serviceAccountName: events-api-sa
       containers:
         - name: events-api
-          image: "599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-events-api:v1.23.2"
+          image: "599476212737.dkr.ecr.ap-south-1.amazonaws.com/ticketops-dev-events-api:v1.24.1"
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
